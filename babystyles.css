@@ -93,6 +93,14 @@ input[type="text"],input[type="password"]{
     font-family: 'Ubuntu', sans-serif;
 }
 
+input[type="name"]{
+    border-radius: 25px;
+    text-align: center;
+    display:table-cell;
+    margin-bottom: 2%;
+    font-family: 'Ubuntu', sans-serif;
+}
+
 #inner-title{
     display: inline-block;
     font-size: 0.8em;
