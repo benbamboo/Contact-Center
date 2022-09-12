@@ -184,7 +184,7 @@ function addColor()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("colorAddResult").innerHTML = "Color has been added";
+				document.getElementById("colorAddResult").innerHTML = "Contact has been added";
 			}
 		};
 		xhr.send(jsonPayload);

@@ -61,14 +61,6 @@ a{
     opacity: 50%;
 }
 
-#firstName
-{
-	font-size: 30px;
-}
-#lastName
-{
-	font-size: 30px;
-}
 #loginName
 {
 	font-size: 30px;
@@ -85,7 +77,7 @@ a{
 {
 	font-size: 30px;
 }
-#colorText
+#contactText
 {
 	font-size: 30px;
 }
@@ -95,14 +87,6 @@ input[type="text"],input[type="password"]{
     text-align: center;
     width: 80%;
     margin-left: 10%;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-}
-
-input[type="name"]{
-    border-radius: 25px;
-    text-align: center;
-    display:table-cell;
     margin-bottom: 2%;
     font-family: 'Ubuntu', sans-serif;
 }
