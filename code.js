@@ -1,4 +1,4 @@
-const urlBase = 'http://COP4331-5.com/LAMPAPI';
+const urlBase = 'http://contactcenters.xyz/LAMPAPI';
 const extension = 'php';
 
 let userId = 0;
@@ -46,7 +46,7 @@ function doLogin()
 
 				saveCookie();
 	
-				window.location.href = "color.html";
+				window.location.href = "contact.html";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -66,25 +66,53 @@ function doRegister()
 	let login = document.getElementById("loginName").value;
 	let password = document.getElementById("loginPassword").value;
 	let retype = document.getElementById("loginRetype").value;
+	document.getElementById("registerResult").innerHTML = "";
 	
 	/* check if created account is valid
 	- all entries exist and aren't empty
 	- password == retyped password
 	*/
+	
+	let jsonPayload = JSON.stringify( tmp ); // tmp doesn't exist yet
+	
+	let url = urlBase + '/Register.' + extension;
 
-	document.getElementById("registerResult").innerHTML = "";
-	if (firstName === "" || lastName === "" || login === "" || password === "" || retype === "")
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
 	{
-		document.getElementById("registerResult").innerHTML = "Please enter all forms.";
-		return;
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				if (firstName === "" || lastName === "" || login === "" || password === "" || retype === "")
+				{
+					document.getElementById("registerResult").innerHTML = "Please enter all forms.";
+					return;
+				}
+				if (password !== retype)
+				{
+					document.getElementById("registerResult").innerHTML = "Passwords are not matching.";
+					return;
+				}
+
+				// somehow register account into database and jsonObject
+		
+				firstName = jsonObject.firstName;
+				lastName = jsonObject.lastName;
+
+				saveCookie();
+	
+				window.location.href = "contact.html";
+			}
+		};
+		xhr.send(jsonPayload);
 	}
-	if (password !== retype)
+	catch(err)
 	{
-		document.getElementById("registerResult").innerHTML = "Passwords are not matching.";
-		return;
+		document.getElementById("loginResult").innerHTML = err.message;
 	}
-
-
 }
 
 function saveCookie()
