@@ -144,11 +144,11 @@ select{
     font-family: 'Ubuntu', sans-serif;
 }
 
-#colorSearchResult{
+#contactSearchResult{
     display: none;
 }
 
-#colorAddResult{
+#contactAddResult{
     display: inline-block;
     font-size: 0.8em;
     width: 90%;
