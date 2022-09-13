@@ -35,7 +35,7 @@ function doLogin()
 				let jsonObject = JSON.parse( xhr.responseText );
 				userId = jsonObject.id;
 		
-				if( userId < 1 )
+				if( userId < 1 || isNaN(userId))
 				{		
 					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
 					return;
