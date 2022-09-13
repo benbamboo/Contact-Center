@@ -61,11 +61,23 @@ a{
     opacity: 50%;
 }
 
+#firstName
+{
+	font-size: 30px;
+}
+#lastName
+{
+	font-size: 30px;
+}
 #loginName
 {
 	font-size: 30px;
 }
 #loginPassword
+{
+	font-size: 30px;
+}
+#loginEmail
 {
 	font-size: 30px;
 }
