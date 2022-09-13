@@ -33,16 +33,16 @@ function doLogin()
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				let jsonObject = JSON.parse( xhr.responseText );
-				userId = jsonObject.id;
+				userId = jsonObject.ID;
 		
-				if( userId < 1 || isNaN(userId))
+				if( userId < 1 )
 				{		
 					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
 					return;
 				}
 		
-				firstName = jsonObject.firstName;
-				lastName = jsonObject.lastName;
+				firstName = jsonObject.FirstName;
+				lastName = jsonObject.LastName;
 
 				saveCookie();
 	
@@ -58,62 +58,62 @@ function doLogin()
 
 }
 
-function doRegister()
-{
-	firstName = document.getElementbyId("firstName").value;
-	lastName = document.getElementbyId("lastName").value;
+// function doRegister()
+// {
+// 	firstName = document.getElementbyId("firstName").value;
+// 	lastName = document.getElementbyId("lastName").value;
 	
-	let login = document.getElementById("loginName").value;
-	let password = document.getElementById("loginPassword").value;
-	let retype = document.getElementById("loginRetype").value;
-	document.getElementById("registerResult").innerHTML = "";
+// 	let login = document.getElementById("loginName").value;
+// 	let password = document.getElementById("loginPassword").value;
+// 	let retype = document.getElementById("loginRetype").value;
+// 	document.getElementById("registerResult").innerHTML = "";
 	
-	/* check if created account is valid
-	- all entries exist and aren't empty
-	- password == retyped password
-	*/
+// 	/* check if created account is valid
+// 	- all entries exist and aren't empty
+// 	- password == retyped password
+// 	*/
 	
-	let jsonPayload = JSON.stringify( tmp ); // tmp doesn't exist yet
+// 	let jsonPayload = JSON.stringify( tmp ); // tmp doesn't exist yet
 	
-	let url = urlBase + '/Register.' + extension;
+// 	let url = urlBase + '/Register.' + extension;
 
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				if (firstName === "" || lastName === "" || login === "" || password === "" || retype === "")
-				{
-					document.getElementById("registerResult").innerHTML = "Please enter all forms.";
-					return;
-				}
-				if (password !== retype)
-				{
-					document.getElementById("registerResult").innerHTML = "Passwords are not matching.";
-					return;
-				}
+// 	let xhr = new XMLHttpRequest();
+// 	xhr.open("POST", url, true);
+// 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+// 	try
+// 	{
+// 		xhr.onreadystatechange = function() 
+// 		{
+// 			if (this.readyState == 4 && this.status == 200) 
+// 			{
+// 				if (firstName === "" || lastName === "" || login === "" || password === "" || retype === "")
+// 				{
+// 					document.getElementById("registerResult").innerHTML = "Please enter all forms.";
+// 					return;
+// 				}
+// 				if (password !== retype)
+// 				{
+// 					document.getElementById("registerResult").innerHTML = "Passwords are not matching.";
+// 					return;
+// 				}
 
-				// somehow register account into database and jsonObject
+// 				// somehow register account into database and jsonObject
 		
-				firstName = jsonObject.firstName;
-				lastName = jsonObject.lastName;
+// 				firstName = jsonObject.firstName;
+// 				lastName = jsonObject.lastName;
 
-				saveCookie();
+// 				saveCookie();
 	
-				window.location.href = "contact.html";
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("loginResult").innerHTML = err.message;
-	}
-}
+// 				window.location.href = "contact.html";
+// 			}
+// 		};
+// 		xhr.send(jsonPayload);
+// 	}
+// 	catch(err)
+// 	{
+// 		document.getElementById("loginResult").innerHTML = err.message;
+// 	}
+// }
 
 function saveCookie()
 {
