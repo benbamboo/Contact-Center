@@ -216,7 +216,12 @@ function searchContact()
 				for( let i=0; i<jsonObject.results.length; i++ )
 				{	
 					// FirstName + LastName + Email + Phone
-					contactList += JSON.stringify(jsonObject.results[i]);
+					let str = jsonObject.results[i];
+					for (let j = 0; j < 5; j++)
+					{
+						contactList += str[Object.keys(str)[j]];
+					}
+					// contactList += JSON.stringify(jsonObject.results[i]);
 					if( i < jsonObject.results.length - 1 )
 					{
 						contactList += "<br />\r\n";
