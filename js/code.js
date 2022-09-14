@@ -58,62 +58,56 @@ function doLogin()
 
 }
 
-// function doRegister()
-// {
-// 	firstName = document.getElementbyId("firstName").value;
-// 	lastName = document.getElementbyId("lastName").value;
+ function doRegister()
+ {
+ 	firstName = document.getElementById("firstName").value;
+ 	lastName = document.getElementById("lastName").value;
 	
-// 	let login = document.getElementById("loginName").value;
-// 	let password = document.getElementById("loginPassword").value;
-// 	let retype = document.getElementById("loginRetype").value;
-// 	document.getElementById("registerResult").innerHTML = "";
+ 	let login = document.getElementById("loginName").value;
+ 	let password = document.getElementById("loginPassword").value;
+ 	let email = document.getElementById("loginEmail").value;
+ 	document.getElementById("registerResult").innerHTML = "";
 	
-// 	/* check if created account is valid
-// 	- all entries exist and aren't empty
-// 	- password == retyped password
-// 	*/
-	
-// 	let jsonPayload = JSON.stringify( tmp ); // tmp doesn't exist yet
-	
-// 	let url = urlBase + '/Register.' + extension;
+ 	/* check if created account is valid
+ 	- all entries exist and aren't empty
+ 	- password == retyped password
+ 	*/
 
-// 	let xhr = new XMLHttpRequest();
-// 	xhr.open("POST", url, true);
-// 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-// 	try
-// 	{
-// 		xhr.onreadystatechange = function() 
-// 		{
-// 			if (this.readyState == 4 && this.status == 200) 
-// 			{
-// 				if (firstName === "" || lastName === "" || login === "" || password === "" || retype === "")
-// 				{
-// 					document.getElementById("registerResult").innerHTML = "Please enter all forms.";
-// 					return;
-// 				}
-// 				if (password !== retype)
-// 				{
-// 					document.getElementById("registerResult").innerHTML = "Passwords are not matching.";
-// 					return;
-// 				}
-
-// 				// somehow register account into database and jsonObject
-		
-// 				firstName = jsonObject.firstName;
-// 				lastName = jsonObject.lastName;
-
-// 				saveCookie();
+ 	let tmp = {FirstName:firstName, LastName:lastName, Email:email, Login:login, Password:password};
 	
-// 				window.location.href = "contact.html";
-// 			}
-// 		};
-// 		xhr.send(jsonPayload);
-// 	}
-// 	catch(err)
-// 	{
-// 		document.getElementById("loginResult").innerHTML = err.message;
-// 	}
-// }
+ 	let jsonPayload = JSON.stringify( tmp ); // tmp doesn't exist yet
+	
+ 	let url = urlBase + '/Register.' + extension;
+
+ 	let xhr = new XMLHttpRequest();
+ 	xhr.open("POST", url, true);
+ 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+ 	try
+ 	{
+ 		xhr.onreadystatechange = function() 
+ 		{
+ 			if (this.readyState == 4 && this.status == 200) 
+ 			{
+ 				if (firstName === "" || lastName === "" || login === "" || password === "")
+ 				{
+ 					document.getElementById("registerResult").innerHTML = "Please enter all forms.";
+ 					return;
+ 				}
+
+ 				// somehow register account into database and jsonObject
+
+ 				saveCookie();
+	
+ 				window.location.href = "contact.html";
+ 			}
+ 		};
+ 		xhr.send(jsonPayload);
+ 	}
+ 	catch(err)
+ 	{
+ 		document.getElementById("loginResult").innerHTML = err.message;
+ 	}
+ }
 
 function saveCookie()
 {
@@ -198,13 +192,13 @@ function addContact()
 
 function searchContact()
 {
-	let name = document.getElementById("searchName").value;
-	let email = document.getElementById("searchEmail").value;
+	let srch = document.getElementById("searchText").value;
 	document.getElementById("contactSearchResult").innerHTML = "";
 	
 	let contactList = "";
 
-	let tmp = {Name:name,Email:email,UserID:userId};
+	// i think the API requires us to input both the name and email
+	let tmp = {Name:srch,UserID:userId,Email:srch};
 	let jsonPayload = JSON.stringify( tmp );
 
 	let url = urlBase + '/SearchContact.' + extension;
@@ -224,7 +218,7 @@ function searchContact()
 				for( let i=0; i<jsonObject.results.length; i++ )
 				{	
 					// FirstName + LastName + Email + Phone
-					contactList += JSON.stringify(jsonObject.results[i]);
+					contactList += jsonObject.results[i];
 					if( i < jsonObject.results.length - 1 )
 					{
 						contactList += "<br />\r\n";
