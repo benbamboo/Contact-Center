@@ -1,0 +1,260 @@
+swagger: '2.0'
+info:
+  description: |
+    This is the API documentation for COP 4331-Small Project Group 1.
+  version: 1.0.0
+  title: Contact Center
+  contact:
+    email: ahernaidan1@knights.ucf.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+paths:
+  /Login.php:
+    post:
+      tags:
+      - Login
+      summary: Logs in to contacts app
+      operationId: doLogin
+      description: Logs in to contacts app
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: loginItem
+        description: Login
+        schema:
+          $ref: '#/definitions/Login'
+      responses:
+        200:
+          description: OK
+        404:
+          description: URL Not Found
+  /Register.php:
+    post:
+      tags:
+      - Register
+      summary: create User
+      operationId: CreatUser
+      description: Creat a user
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: CreatUser
+        description: CreatUser
+        schema:
+          $ref: '#/definitions/CreateUser'
+      responses:
+        200:
+          description: OK
+        404:
+          description: URL Not Found
+  /AddContact.php:
+    post:
+      tags:
+      - Add Contact
+      summary: Adds a contact
+      operationId: addUser
+      description: Adds a Contact
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: AddContact
+        description: AddContact
+        schema:
+          $ref: '#/definitions/AddContact'
+      responses:
+        200:
+          description: OK
+        404:
+          description: URL Not Found
+  /UpdateContact.php:
+    post:
+      tags:
+      - Update contact
+      summary: Update contact
+      operationId: UpdateContact
+      description: Update a user to the database
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: UpdateContact
+        description: UpdateContact
+        schema:
+          $ref: '#/definitions/UpdateContact'
+      responses:
+        200:
+          description: OK
+        404:
+          description: URL Not Found
+  /SearchContact.php:
+    post:
+      tags:
+      - Search Contact
+      summary: Searches Contact
+      operationId: searchContact
+      description: Searches Contact
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: searchContact
+        description: SearchContact
+        schema:
+          $ref: '#/definitions/SearchContact'
+      responses:
+        200:
+          description: OK
+        404:
+          description: URL Not Found
+  /DeleteContact.php:
+    post:
+      tags:
+      - Delete Contact
+      summary: Delete a Contact 
+      operationId: DeleteContact
+      description: Delete a contact from Data Base
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: DeleteContact
+        description: DeleteContact
+        schema:
+          $ref: '#/definitions/DeleteContact'
+      responses:
+        200:
+          description: OK
+        404:
+          description: URL Not Found
+definitions:
+  Login:
+    type: object
+    required:
+    - username
+    - password
+    properties:
+      username:
+        type: string
+        example: "BrassMonkey"
+      password:
+        type: string
+        example: ThatFunkyMonky1
+  CreateUser:
+    type: object
+    required:
+    - firstname
+    - lastname
+    - username
+    - password
+    properties:
+      firstname:
+        type: string
+        example: "percy"
+      lastname:
+        type: string
+        example: "jackson"
+      username:
+        type: string
+        example: "lightningtheif1"
+      password:
+        type: string
+        example: "riodran"
+  
+  AddContact:
+    type: object
+    required:
+    - firstname
+    - lastname
+    - email
+    - phoneNO
+    - userID
+    properties:
+      firstname:
+        type: string
+        example: "harry"
+      lastname:
+        type: string
+        example: "potter"
+      email:
+        type: string
+        example: "potterhead1@fmail.com"
+      phoneNO:
+        type: string
+        example: "000-000-0000"
+      userID:
+        type: integer
+        example: 7
+  UpdateContact:
+    type: object
+    required:
+    - firstname
+    - lastname
+    - email
+    - phoneNO
+    properties:
+      firstname:
+        type: string
+        example: "greg"
+      lastname:
+        type: string
+        example: "hefley"
+      email:
+        type: string
+        example: "wimpykid@fmail.com"
+      phoneNO:
+        type: string
+        example: "000-000-0009"
+  SearchContact:
+    type: object
+    required:
+    - firstname
+    - lastname
+    - email
+    - phoneNO
+    - userID
+    properties:  
+      firstname:
+        type: string
+        example: "Frodo"
+      lastname:
+        type: string
+        example: "Baggins"
+      email:
+        type: string
+        example: "shire@fmail.com"
+      phoneNO:
+        type: string
+        example: "000-000-0000"
+      userID:
+        type: integer
+        example: 7
+  DeleteContact:
+    type: object
+    required:
+    - contactID
+    properties:
+      contactID:
+        type: integer
+        example: 7
+
+host: contactcenters.xyz
+basePath: /LAMPAPI
+schemes:
+- http
