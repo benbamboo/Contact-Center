@@ -61,6 +61,14 @@ a{
     opacity: 50%;
 }
 
+#firstName
+{
+	font-size: 30px;
+}
+#lastName
+{
+	font-size: 30px;
+}
 #loginName
 {
 	font-size: 30px;
@@ -69,11 +77,19 @@ a{
 {
 	font-size: 30px;
 }
+#loginEmail
+{
+	font-size: 30px;
+}
 #loginRetype
 {
     font-size: 30px;
 }
-#searchText
+#searchName
+{
+	font-size: 30px;
+}
+#searchEmail
 {
 	font-size: 30px;
 }
