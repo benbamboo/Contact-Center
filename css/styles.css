@@ -85,7 +85,11 @@ a{
 {
     font-size: 30px;
 }
-#searchText
+#searchName
+{
+	font-size: 30px;
+}
+#searchEmail
 {
 	font-size: 30px;
 }

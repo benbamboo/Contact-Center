@@ -198,13 +198,13 @@ function addContact()
 
 function searchContact()
 {
-	let srch = document.getElementById("searchText").value;
+	let name = document.getElementById("searchName").value;
+	let email = document.getElementById("searchEmail").value;
 	document.getElementById("contactSearchResult").innerHTML = "";
 	
 	let contactList = "";
 
-	// i think the API requires us to input both the name and email
-	let tmp = {Name:srch,UserID:userId,Email:srch};
+	let tmp = {Name:name,Email:email,UserID:userId};
 	let jsonPayload = JSON.stringify( tmp );
 
 	let url = urlBase + '/SearchContact.' + extension;
@@ -224,7 +224,7 @@ function searchContact()
 				for( let i=0; i<jsonObject.results.length; i++ )
 				{	
 					// FirstName + LastName + Email + Phone
-					contactList += jsonObject.results[i];
+					contactList += JSON.stringify(jsonObject.results[i]);
 					if( i < jsonObject.results.length - 1 )
 					{
 						contactList += "<br />\r\n";
