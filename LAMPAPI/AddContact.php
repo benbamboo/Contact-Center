@@ -18,8 +18,10 @@
 		$stmt->bind_param("sssss", $Phone, $FirstName,$LastName, $UserID, $Email);
 		$stmt->execute();
 		$stmt->close();
+		$stmt = "select * from Contacts where ID = LAST_INSERT_ID()";
+		$result = $conn->query($stmt);
+		returnWithInfo($result->fetch_assoc());
 		$conn->close();
-		returnWithError("");
 	}
 
 	function getRequestInfo()
@@ -33,10 +35,11 @@
 		echo $obj;
 	}
 	
-	function returnWithError( $err )
+	function returnWithInfo( $row )
 	{
-		$retValue = '{"error":"' . $err . '"}';
-		sendResultInfoAsJson( $retValue );
+		$searchResults = '{"FirstName" : "' . $row["FirstName"]. '","LastName" : "' . $row["LastName"] .
+ 			'","Email" : "' . $row["Email"] . '","Phone" : "' . $row["Phone"] . '" }';
+		sendResultInfoAsJson( $searchResults );
 	}
 	
 ?>
