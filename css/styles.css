@@ -46,6 +46,15 @@ a{
     background-color: #b2b2b2;
 }
 
+#addContactDiv
+{
+    font-size: 30px;
+    width: 70%;
+    margin-left: 15%;
+    padding: 25px;
+    background-color: #b2b2b2;
+}
+
 .buttons
 {
     font-size: 30px;
