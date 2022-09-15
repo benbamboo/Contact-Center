@@ -219,9 +219,17 @@ function searchContact()
 					let str = jsonObject.results[i];
 					for (let j = 0; j < 5; j++)
 					{
+						// hide ID
+						if (j === 3)
+						{
+							continue;
+						}
 						contactList += str[Object.keys(str)[j]];
+						if (j < 4)
+						{
+							contactList += "\t\t";
+						}
 					}
-					// contactList += JSON.stringify(jsonObject.results[i]);
 					if( i < jsonObject.results.length - 1 )
 					{
 						contactList += "<br />\r\n";
