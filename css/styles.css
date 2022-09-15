@@ -9,7 +9,7 @@ a{
     font-family: 'Ubuntu', sans-serif;
 }
 
-table.contactTable td{
+table.contactTable {
     font-family: 'Ubuntu', sans-serif;
 }
 
@@ -83,10 +83,12 @@ table.contactTable td{
     margin-left: 40%;
 }
 #updateButton{
-    width: 20%;
+    width: 10%;
+    margin-left: 5%;
 }
 #deleteButton{
-    width: 20%;
+    width: 10%;
+    margin-left: 1%;
 }
 
 #firstName
@@ -196,6 +198,18 @@ select{
 }
 
 #contactAddResult{
+    display: inline-block;
+    font-size: 0.8em;
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+    margin-top: 2%;
+    margin-bottom: 1%;
+    font-family: 'Ubuntu', sans-serif;
+    color: #95060a;
+}
+
+#contactDeleteResult{
     display: inline-block;
     font-size: 0.8em;
     width: 90%;
