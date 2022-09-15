@@ -215,8 +215,8 @@ function searchContact()
 				
 				for( let i=0; i<jsonObject.results.length; i++ )
 				{	
-					// FirstName + LastName + Email + Phone
-					let str = jsonObject.results[i];
+					let str = jsonObject.results[i]; // one contact
+					contactList += "<tr>";
 					for (let j = 0; j < 5; j++)
 					{
 						// hide ID
@@ -224,12 +224,16 @@ function searchContact()
 						{
 							continue;
 						}
-						contactList += str[Object.keys(str)[j]];
+						// prints each field (FirstName / LastName / Email / Phone)
+						contactList += ("<td>" + str[Object.keys(str)[j]] + "</td>");
 						if (j < 4)
 						{
 							contactList += "\t";
 						}
 					}
+					// add update/delete button for each jsonObject.results[i]
+					contactList += "<td><button type='button' id='updateButton' class='buttons' onclick='updateContact(${str});'>Update</button>"
+					contactList += "<td><button type='button' id='deleteButton' class='buttons' onclick='deleteContact(${str});'>Delete</button></tr>"
 					if( i < jsonObject.results.length - 1 )
 					{
 						contactList += "<br />\r\n";
