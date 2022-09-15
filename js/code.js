@@ -88,7 +88,7 @@ function doLogin()
  		{
  			if (this.readyState == 4 && this.status == 200) 
  			{
- 				if (firstName === "" || lastName === "" || login === "" || password === "")
+ 				if (firstName === "" || lastName === "" || login === "" || password === "" || email === """)
  				{
  					document.getElementById("registerResult").innerHTML = "Please enter all forms.";
  					return;
@@ -248,7 +248,12 @@ function searchContact()
 	
 }
 
-function deleteContact ()
+function updateContact()
+{
+
+}
+
+function deleteContact()
 {
 	
 }
