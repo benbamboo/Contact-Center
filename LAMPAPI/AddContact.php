@@ -4,7 +4,7 @@
 	$FirstName = $inData["FirstName"];
 	$LastName = $inData["LastName"];
 	$UserID = $inData["UserID"];
-	$Phone = $inData["Phone"];
+	$Phone = preg_replace("/[^a-zA-Z0-9]+/", "", $inData["Phone"]);
 	$Email = $inData["Email"];
 
 	$conn = new mysqli("localhost", "API", "API!", "COP4331");
