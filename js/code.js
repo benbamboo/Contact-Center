@@ -220,14 +220,14 @@ function searchContact()
 					for (let j = 0; j < 5; j++)
 					{
 						// hide ID
-						if (j === 3)
+						if (Object.keys(str)[j] == "ID")
 						{
 							continue;
 						}
 						contactList += str[Object.keys(str)[j]];
 						if (j < 4)
 						{
-							contactList += "\t\t";
+							contactList += "\t";
 						}
 					}
 					if( i < jsonObject.results.length - 1 )
