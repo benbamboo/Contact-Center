@@ -14,7 +14,7 @@
 	}
 	else
 	{
-		$stmt = $conn->prepare("SELECT ID,FirstName,LastName FROM Users WHERE (Login = ? AND Password = ?)");
+		$stmt = $conn->prepare("SELECT ID,FirstName,LastName FROM Users WHERE (Login = ? AND Password = BINARY ?)");
 		$login = $inData["Login"];
 		$password = $inData["Password"];
 		
