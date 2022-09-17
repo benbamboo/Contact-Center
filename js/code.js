@@ -159,10 +159,14 @@ function doLogout()
 
 function addContact()
 {
-	let newContact = document.getElementById("contactText").value;
+	let contactFirstName = document.getElementById("contactFirst").value;
+	let contactLastName = document.getElementById("contactLast").value;
+
+	let email = document.getElementById("contactEmail").value;
+	let phone = document.getElementById("contactPhone").value;
 	document.getElementById("contactAddResult").innerHTML = "";
 
-	let tmp = {contact:newContact,userId,userId};
+	let tmp = {Phone:phone,FirstName:contactFirstName,LastName:contactLastName,UserID:userId,Email:email};
 	let jsonPayload = JSON.stringify( tmp );
 
 	let url = urlBase + '/AddContact.' + extension;
@@ -177,6 +181,8 @@ function addContact()
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				document.getElementById("contactAddResult").innerHTML = "Contact has been added";
+
+				setTimeout(function(){window.location.href = "contact.html";}, 1000);
 			}
 		};
 		xhr.send(jsonPayload);
@@ -279,9 +285,11 @@ function deleteContact(str, event)
 			{
 				// remove entire row/contact from list
 				// refresh page
-				searchContact();
+				//searchContact();
 
 				document.getElementById("contactDeleteResult").innerHTML = "Contact has been deleted";
+
+				window.location.reload();
 			}
 		};
 		xhr.send(jsonPayload);
@@ -291,4 +299,3 @@ function deleteContact(str, event)
 		document.getElementById("contactDeleteResult").innerHTML = err.message;
 	}
 }
-

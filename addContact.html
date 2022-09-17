@@ -15,11 +15,15 @@
     </head>
     <body>
         <h1 id="title">Contact Center</h1>
+        
+        <div id="loggedInDiv">
+            <button type="button" onclick = "window.location.href = 'contact.html';" id="backButton" class="buttons" >Back</button><br />
+        </div>
 
         <div id="addContactDiv">
             <span id="inner-title">Create a Contact</span>
-            <input type="text" id="firstName" placeholder="First name" />
-            <input type="text" id="lastName" placeholder="Last name" />
+            <input type="text" id="contactFirst" placeholder="First name" />
+            <input type="text" id="contactLast" placeholder="Last name" />
             <input type="text" id="contactEmail" placeholder="Email"/>
             <input type="text" id="contactPhone" placeholder="Phone Number"/>
             <button type="button" id="addButton" class="buttons" onclick="addContact();">Add Contact</button>
