@@ -5,14 +5,14 @@
 	$required = array('FirstName', 'LastName', 'Email','Password', 'Login');
 
 	// Loop over field names, make sure each one exists and is not empty
-	$error = false;
+	$empty = false;
 	foreach($required as $field) {
 	  if (empty($inData[$field])) {
-	    $error = true;
+	    $empty = true;
 	  }
 	}
 
-	if ($error) {
+	if ($empty) {
 	  echo "All fields are required.";
 	  exit();
 	}
@@ -31,10 +31,20 @@
 	} 
 	else
 	{
+
+		$stmt = "SELECT * FROM Users WHERE Login = '{$Login}'";
+
+		$result = $conn->query($stmt);
+		if (mysqli_num_rows($result)!=0){
+			echo "Username already in use";
+			exit();
+		}
+
+
+
 		$stmt = $conn->prepare("INSERT into Users (FirstName, LastName, Login, Password, Email) VALUES(?,?,?,?,?)");
 		$stmt->bind_param("sssss", $FirstName, $LastName, $Login, $Password,$Email);
 		$stmt->execute();
-		$stmt->close();
 
 		//return what was inserted
 		$stmt = "select * from Users where ID = LAST_INSERT_ID()";
