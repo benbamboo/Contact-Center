@@ -202,7 +202,15 @@ select{
 }
 
 #contactSearchResult{
-    display: none;
+    display: inline-block;
+    font-size: 0.8em;
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+    margin-top: 2%;
+    margin-bottom: 1%;
+    font-family: 'Ubuntu', sans-serif;
+    color: #95060a;
 }
 
 #contactAddResult{

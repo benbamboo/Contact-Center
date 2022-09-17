@@ -199,6 +199,7 @@ function searchContact()
 	let name = document.getElementById("searchName").value;
 	let email = document.getElementById("searchEmail").value;
 	document.getElementById("contactSearchResult").innerHTML = "";
+	document.getElementsByTagName("p")[0].innerHTML = "";
 	
 	let contactList = "";
 
@@ -216,8 +217,16 @@ function searchContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
 				let jsonObject = JSON.parse( xhr.responseText );
+
+				// if no results
+				if (jsonObject.results === undefined)
+				{
+					document.getElementById("contactSearchResult").innerHTML = "No records found!";
+					return;
+				}
+
+				document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
 				
 				for( let i=0; i<jsonObject.results.length; i++ )
 				{	
