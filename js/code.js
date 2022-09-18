@@ -247,7 +247,7 @@ function searchContact()
 						}
 					}
 					// add update/delete button for each jsonObject.results[i]
-					contactList += `<td><button type='button' id='updateButton' class='buttons' onclick='updateContact(${JSON.stringify(str)});'>Update</button>`
+					contactList += `<td><button type='button' id='updateButton' class='buttons' onclick="window.location.href = 'updateContact.html';">Update</button>`
 					contactList += `<td><button type='button' id='deleteButton' class='buttons' onclick='deleteContact(${JSON.stringify(str)});'>Delete</button></tr>`
 					
 					if( i < jsonObject.results.length - 1 )
@@ -270,7 +270,39 @@ function searchContact()
 
 function updateContact()
 {
+	let contactFirstName = document.getElementById("contactFirst").value;
+	let contactLastName = document.getElementById("contactLast").value;
 
+	let email = document.getElementById("contactEmail").value;
+	let phone = document.getElementById("contactPhone").value;
+	document.getElementById("contactAddResult").innerHTML = "";
+
+	let tmp = {Phone:phone,FirstName:contactFirstName,LastName:contactLastName,UserID:userId,Email:email};
+	let jsonPayload = JSON.stringify( tmp );
+
+	let url = urlBase + '/AddContact.' + extension;
+	
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("contactAddResult").innerHTML = "Contact has been added";
+
+				setTimeout(function(){window.location.href = "contact.html";}, 1000);
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("contactAddResult").innerHTML = err.message;
+	}
+	
 }
 
 function deleteContact(str, event)

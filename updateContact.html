@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <title>New Contact</title>
+
+        <script type="text/javascript" src="js/code.js"></script>
+        <link href="css/styles.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+        
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function () {
+                readCookie();
+            }, false);
+        </script>
+        
+    </head>
+    <body>
+        <h1 id="title">Contact Center</h1>
+        
+        <div id="loggedInDiv">
+            <button type="button" onclick = "window.location.href = 'contact.html';" id="backButton" class="buttons" >Back</button><br />
+        </div>
+
+        <div id="addContactDiv">
+            <span id="inner-title">Update your Contact</span>
+            <input type="text" id="contactFirst" placeholder="First name" />
+            <input type="text" id="contactLast" placeholder="Last name" />
+            <input type="text" id="contactEmail" placeholder="Email"/>
+            <input type="text" id="contactPhone" placeholder="Phone Number"/>
+            <button type="button" id="update2Button" class="buttons" onclick="updateContact();">Update Contact</button>
+            <span id="contactUpdateResult"></span>
+        </div>
+
+    </body>
+</html>
