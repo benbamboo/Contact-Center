@@ -268,19 +268,29 @@ function searchContact()
 	
 }
 
-function updateContact()
+function readPrevInfo(str)
+{
+	// try to put current contact info in input fields
+	let prevFirst = str["FirstName"];
+	let prevLast = str["LastName"];
+	let prevEmail = str["Email"];
+	let prevPhone = str["Phone"];
+}
+
+function updateContact(str)
 {
 	let contactFirstName = document.getElementById("contactFirst").value;
 	let contactLastName = document.getElementById("contactLast").value;
 
 	let email = document.getElementById("contactEmail").value;
 	let phone = document.getElementById("contactPhone").value;
-	document.getElementById("contactAddResult").innerHTML = "";
+	let id = str["ID"];
+	document.getElementById("contactUpdateResult").innerHTML = "";
 
-	let tmp = {Phone:phone,FirstName:contactFirstName,LastName:contactLastName,UserID:userId,Email:email};
+	let tmp = {FirstName:contactFirstName,LastName:contactLastName,Email:email,Phone:phone,ID:id};
 	let jsonPayload = JSON.stringify( tmp );
 
-	let url = urlBase + '/AddContact.' + extension;
+	let url = urlBase + '/UpdateContact.' + extension;
 	
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -291,7 +301,7 @@ function updateContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("contactAddResult").innerHTML = "Contact has been added";
+				document.getElementById("contactUpdateResult").innerHTML = "Contact has been updated";
 
 				setTimeout(function(){window.location.href = "contact.html";}, 1000);
 			}
@@ -300,12 +310,12 @@ function updateContact()
 	}
 	catch(err)
 	{
-		document.getElementById("contactAddResult").innerHTML = err.message;
+		document.getElementById("contactUpdateResult").innerHTML = err.message;
 	}
 	
 }
 
-function deleteContact(str, event)
+function deleteContact(str)
 {
 	// (contact) = passed jsonObject.results[i]
 	// let id = contact["ID"];
