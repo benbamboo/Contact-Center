@@ -7,7 +7,7 @@
 	// Loop over field names, make sure each one exists and is not empty
 	$empty = false;
 	foreach($required as $field) {
-	  if (empty($inData[$field])) {
+	  if (empty(trim($inData[$field]))) {
 	    $empty = true;
 	  }
 	}
