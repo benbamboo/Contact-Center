@@ -264,3 +264,15 @@ select{
 #h1{
     text-align: center;
 }
+
+#updateButton{
+    position:absolute;
+    right:350px;
+    /* text-align: right; */
+}
+
+#deleteButton{
+    position: absolute;
+    right: 200px;
+    /* text-align:right; */
+}
