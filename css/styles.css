@@ -1,6 +1,6 @@
 body 
 {
-    background-color: #707070;
+    background-color:  #f7bf50;
 }
 
 a{
@@ -25,11 +25,16 @@ table.contactTable {
 
 #loginDiv
 {
-    font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
-    padding: 25px;
-    background-color: #b2b2b2;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
 }
 
 #loggedInDiv
@@ -72,6 +77,13 @@ table.contactTable {
     background-color: #00d5124f;
     color: #FFFFFF;
     opacity: 50%;
+}
+.logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 25%;
+  height: 15%;
 }
 
 #logoutButton{
@@ -155,13 +167,13 @@ input[type="text"],input[type="password"]{
 
 #inner-title{
     display: inline-block;
-    font-size: 0.8em;
+    font-size: 1em;
     width: 90%;
     text-align: center;
     margin-left: 5%;
     margin-bottom: 2%;
     font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+    color: #FFFFFF;
 }
 
 #loginResult{
@@ -214,6 +226,18 @@ select{
 }
 
 #contactAddResult{
+    display: inline-block;
+    font-size: 0.8em;
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+    margin-top: 2%;
+    margin-bottom: 1%;
+    font-family: 'Ubuntu', sans-serif;
+    color: #95060a;
+}
+
+#contactUpdateResult{
     display: inline-block;
     font-size: 0.8em;
     width: 90%;

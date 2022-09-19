@@ -96,7 +96,7 @@ function doLogin()
 
  				saveCookie();
 	
- 				window.location.href = "contact.html";
+ 				window.location.href = "index.html";
  			}
  		};
  		xhr.send(jsonPayload);
@@ -247,7 +247,7 @@ function searchContact()
 						}
 					}
 					// add update/delete button for each jsonObject.results[i]
-					contactList += `<td><button type='button' id='updateButton' class='buttons' onclick="window.location.href = 'updateContact.html';">Update</button>`
+					contactList += `<td><button type='button' id='updateButton' class='buttons' onclick='setUpPrev(${JSON.stringify(str)});'>Update</button>`
 					contactList += `<td><button type='button' id='deleteButton' class='buttons' onclick='deleteContact(${JSON.stringify(str)});'>Delete</button></tr>`
 					
 					if( i < jsonObject.results.length - 1 )
@@ -268,26 +268,32 @@ function searchContact()
 	
 }
 
-function readPrevInfo(str)
+function setUpPrev(str)
 {
-	// try to put current contact info in input fields
-	let prevFirst = str["FirstName"];
-	let prevLast = str["LastName"];
-	let prevEmail = str["Email"];
-	let prevPhone = str["Phone"];
+	// put current contact info in input fields
+	let updatePage = `
+		<span id="inner-title">Update your Contact</span>
+		<input type="text" id="contactFirst" placeholder="First name" value=${str["FirstName"]} />
+		<input type="text" id="contactLast" placeholder="Last name" value=${str["LastName"]} />
+		<input type="text" id="contactEmail" placeholder="Email" value=${str["Email"]} />
+		<input type="text" id="contactPhone" placeholder="Phone Number" value=${str["Phone"]} />
+		<button type="button" id="update2Button" class="buttons" onclick="updateContact(${str["ID"]});">Update Contact</button>
+		<span id="contactUpdateResult"></span>`;
+	
+	document.getElementsByTagName("p")[0].innerHTML = updatePage;
 }
 
-function updateContact(str)
+function updateContact(id)
 {
 	let contactFirstName = document.getElementById("contactFirst").value;
 	let contactLastName = document.getElementById("contactLast").value;
 
 	let email = document.getElementById("contactEmail").value;
 	let phone = document.getElementById("contactPhone").value;
-	let id = str["ID"];
+	let ID = id;
 	document.getElementById("contactUpdateResult").innerHTML = "";
 
-	let tmp = {FirstName:contactFirstName,LastName:contactLastName,Email:email,Phone:phone,ID:id};
+	let tmp = {FirstName:contactFirstName,LastName:contactLastName,Email:email,Phone:phone,ID:ID};
 	let jsonPayload = JSON.stringify( tmp );
 
 	let url = urlBase + '/UpdateContact.' + extension;
@@ -303,7 +309,7 @@ function updateContact(str)
 			{
 				document.getElementById("contactUpdateResult").innerHTML = "Contact has been updated";
 
-				setTimeout(function(){window.location.href = "contact.html";}, 1000);
+				setTimeout(function(){searchContact();}, 1000);
 			}
 		};
 		xhr.send(jsonPayload);
