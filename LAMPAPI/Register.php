@@ -23,6 +23,15 @@
 	$Email = $inData["Email"];
 	$Login = $inData["Login"];
 	$Password = $inData["Password"];
+
+	$whitespace = false;
+	if (preg_match('/\s/',$Login)){
+	  echo "No whitespace in username is allowed.";
+	  $whitespace = true;
+	}
+	if($whitespace){
+		exit();
+	}
 	
 	$conn = new mysqli("localhost", "API", "API!", "COP4331");
 	if ($conn->connect_error) 
