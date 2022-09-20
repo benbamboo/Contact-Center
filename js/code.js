@@ -231,24 +231,28 @@ function searchContact()
 				for( let i=0; i<jsonObject.results.length; i++ )
 				{	
 					let str = jsonObject.results[i]; // one contact
-					contactList += "<tr>";
-					for (let j = 0; j < 5; j++)
+					contactList += "<p><a class='btn btn-primary' data-toggle='collapse' data-target='#collapseExample' role='button' aria-expanded='false' aria-controls='collapseExample'>" 
+					+ str["FirstName"] + " " + str["LastName"] + "</a></p>";
+					contactList += "<div class='collapse' id='collapseExample'><div class='card card-body'>";
+
+					// print rest of info (NOT FirstName / LastName)
+					for (let j = 2; j < 5; j++)
 					{
 						// hide ID
 						if (Object.keys(str)[j] == "ID")
 						{
 							continue;
 						}
-						// prints each field (FirstName / LastName / Email / Phone)
-						contactList += ("<td>" + str[Object.keys(str)[j]] + "</td>");
+						// prints each field (Email / Phone)
+						contactList += str[Object.keys(str)[j]];
 						if (j < 4)
 						{
 							contactList += "\t";
 						}
 					}
 					// add update/delete button for each jsonObject.results[i]
-					contactList += `<td><button type='button' id='updateButton' class='buttons' onclick='setUpPrev(${JSON.stringify(str)});'>Update</button>`
-					contactList += `<td><button type='button' id='deleteButton' class='buttons' onclick='deleteContact(${JSON.stringify(str)});'>Delete</button></tr>`
+					contactList += `<button type='button' id='updateButton' class='buttons' onclick='setUpPrev(${JSON.stringify(str)});'>Update</button>`
+					contactList += `<button type='button' id='deleteButton' class='buttons' onclick='deleteContact(${JSON.stringify(str)});'>Delete</button></div>`
 					
 					if( i < jsonObject.results.length - 1 )
 					{
