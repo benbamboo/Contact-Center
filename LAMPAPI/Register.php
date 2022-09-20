@@ -23,6 +23,17 @@
 	$Email = $inData["Email"];
 	$Login = $inData["Login"];
 	$Password = $inData["Password"];
+	
+	$invalidEmail=false;
+	if (!filter_var($Email, FILTER_VALIDATE_EMAIL)) {
+  	  $invalidEmail=true;
+	  echo("$email is not a valid email address");
+	} 
+
+	if($invalidEmail){
+	  exit();
+	}
+	
 
 	$whitespace = false;
 	if (preg_match('/\s/',$Login)){
