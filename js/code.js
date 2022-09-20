@@ -256,7 +256,8 @@ function searchContact()
 					}
 					// add update/delete button for each jsonObject.results[i]
 					contactList += `<button type='button' id='updateButton' class='btn btn-outline-primary ms-1' onclick='setUpPrev(${JSON.stringify(str)});'>Update</button>`
-					contactList += `<button type='button' id='deleteButton' class='btn btn-outline-primary ms-1' onclick='deleteContact(${JSON.stringify(str)});'>Delete</button></div></div></div>`
+					contactList += `<button type='button' id='deleteButton' class='btn btn-outline-primary ms-1' onclick='deleteContact(${JSON.stringify(str)});'>Delete</button>`
+					contactList += "</div></div><span id='contactDeleteResult'></span></div>"
 					
 					// if( i < jsonObject.results.length - 1 )
 					// {
@@ -351,11 +352,10 @@ function deleteContact(str)
 			{
 				// remove entire row/contact from list
 				// refresh page
-				//searchContact();
 
 				document.getElementById("contactDeleteResult").innerHTML = "Contact has been deleted";
 
-				window.location.reload();
+				setTimeout(function(){searchContact();}, 1000);
 			}
 		};
 		xhr.send(jsonPayload);
