@@ -27,7 +27,7 @@
 	$invalidEmail=false;
 	if (!filter_var($Email, FILTER_VALIDATE_EMAIL)) {
   	  $invalidEmail=true;
-	  echo("$email is not a valid email address");
+	  echo("This is not a valid email address");
 	} 
 
 	if($invalidEmail){
