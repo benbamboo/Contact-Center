@@ -255,8 +255,8 @@ function searchContact()
 						}
 					}
 					// add update/delete button for each jsonObject.results[i]
-					contactList += `<button type='button' id='updateButton' class='buttons' onclick='setUpPrev(${JSON.stringify(str)});'>Update</button>`
-					contactList += `<button type='button' id='deleteButton' class='buttons' onclick='deleteContact(${JSON.stringify(str)});'>Delete</button></div></div></div>`
+					contactList += `<button type='button' id='updateButton' class='btn btn-outline-primary ms-1' onclick='setUpPrev(${JSON.stringify(str)});'>Update</button>`
+					contactList += `<button type='button' id='deleteButton' class='btn btn-outline-primary ms-1' onclick='deleteContact(${JSON.stringify(str)});'>Delete</button></div></div></div>`
 					
 					// if( i < jsonObject.results.length - 1 )
 					// {
