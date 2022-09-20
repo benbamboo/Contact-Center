@@ -228,12 +228,16 @@ function searchContact()
 
 				document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
 				
+				contactList = "<div class='accordion' id='contactList'>"
+
 				for( let i=0; i<jsonObject.results.length; i++ )
 				{	
 					let str = jsonObject.results[i]; // one contact
-					contactList += "<p><a class='btn btn-primary' data-toggle='collapse' data-target='#collapseExample' role='button' aria-expanded='false' aria-controls='collapseExample'>" 
-					+ str["FirstName"] + " " + str["LastName"] + "</a></p>";
-					contactList += "<div class='collapse' id='collapseExample'><div class='card card-body'>";
+
+					contactList += `<div class='accordion-item'><h2 class='accordion-header' id='heading${i}'>`;
+					contactList += `<button class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#collapse${i}' aria-expanded='false' aria-controls="collapse${i}">`
+					contactList += str["FirstName"] + " " + str["LastName"] + "</button></h2>";
+					contactList += `<div id='collapse${i}' class='accordion-collapse collapse' aria-labelledby='heading${i}' data-bs-parent='#contactList'><div class='accordion-body'>`;
 
 					// print rest of info (NOT FirstName / LastName)
 					for (let j = 2; j < 5; j++)
@@ -252,14 +256,15 @@ function searchContact()
 					}
 					// add update/delete button for each jsonObject.results[i]
 					contactList += `<button type='button' id='updateButton' class='buttons' onclick='setUpPrev(${JSON.stringify(str)});'>Update</button>`
-					contactList += `<button type='button' id='deleteButton' class='buttons' onclick='deleteContact(${JSON.stringify(str)});'>Delete</button></div>`
+					contactList += `<button type='button' id='deleteButton' class='buttons' onclick='deleteContact(${JSON.stringify(str)});'>Delete</button></div></div></div>`
 					
-					if( i < jsonObject.results.length - 1 )
-					{
-						contactList += "<br />\r\n";
-					}
+					// if( i < jsonObject.results.length - 1 )
+					// {
+					// 	contactList += "<br />\r\n";
+					// }
 				}
-				
+				contactList += "</div>";
+
 				document.getElementsByTagName("p")[0].innerHTML = contactList;
 			}
 		};
