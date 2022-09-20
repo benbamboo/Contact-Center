@@ -7,6 +7,15 @@
     $Phone = preg_replace("/[^a-zA-Z0-9]+/", "", $inData["Phone"]);
     $Email = $inData["Email"];
 
+    $correctLen=true;
+    if(strlen($Phone) > 0 && strlen($Phone)!=10){
+      echo "Please enter a 10-digit phone number";
+      $correctLen=false;
+     }
+     if(!$correctLen){
+       exit();
+      }
+
     $conn = new mysqli("localhost", "API", "API!", "COP4331");
     if ($conn->connect_error) 
     {
