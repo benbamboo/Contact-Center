@@ -88,13 +88,13 @@ function doLogin()
  		{
  			if (this.readyState == 4 && this.status == 200) 
  			{
- 				if (firstName === "" || lastName === "" || login === "" || password === "" || email === "")
- 				{
- 					document.getElementById("registerResult").innerHTML = "Please enter all forms.";
- 					return;
- 				}
-
- 				saveCookie();
+				// check if parse is either legit acct or error string
+				try {
+					JSON.parse(xhr.responseText);
+				} catch (e) {
+					document.getElementById("registerResult").innerHTML = xhr.responseText;
+					return;
+				}
 	
  				window.location.href = "login.html";
  			}
