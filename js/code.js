@@ -204,7 +204,7 @@ function addContact()
 function searchContact()
 {
 	let name = document.getElementById("searchName").value;
-	let email = document.getElementById("searchEmail").value;
+	let email = ""; // only searching for name
 	document.getElementById("contactSearchResult").innerHTML = "";
 	document.getElementsByTagName("p")[0].innerHTML = "";
 	
@@ -224,14 +224,14 @@ function searchContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				let jsonObject = JSON.parse( xhr.responseText );
-
-				// if no results
-				if (jsonObject.results === undefined)
-				{
-					document.getElementById("contactSearchResult").innerHTML = "No records found!";
+				try {
+					JSON.parse(xhr.responseText);
+				} catch (e) {
+					document.getElementById("contactSearchResult").innerHTML = xhr.responseText;
 					return;
 				}
+
+				let jsonObject = JSON.parse( xhr.responseText );
 
 				document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
 				
