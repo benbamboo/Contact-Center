@@ -65,6 +65,7 @@ function doRegister() {
  	- password == retyped password
  	*/
 
+<<<<<<< HEAD
 	let tmp = {
 		FirstName: firstName,
 		LastName: lastName,
@@ -107,6 +108,46 @@ function doRegister() {
 }
 
 function saveCookie() {
+=======
+ 	let tmp = {FirstName:firstName, LastName:lastName, Email:email, Login:login, Password:password};
+	
+ 	let jsonPayload = JSON.stringify( tmp ); 
+	
+ 	let url = urlBase + '/Register.' + extension;
+
+ 	let xhr = new XMLHttpRequest();
+ 	xhr.open("POST", url, true);
+ 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+ 	try
+ 	{
+ 		xhr.onreadystatechange = function() 
+ 		{
+ 			if (this.readyState == 4 && this.status == 200) 
+ 			{
+				// check if parse is either legit acct or error string
+				try {
+					JSON.parse(xhr.responseText);
+				} catch (e) {
+					document.getElementById("registerResult").innerHTML = xhr.responseText;
+					return;
+				}
+
+ 				saveCookie();
+	
+ 				window.location.href = "login.html";
+ 			}
+ 		};
+ 		xhr.send(jsonPayload);
+ 	}
+ 	catch(err)
+ 	{
+ 		document.getElementById("loginResult").innerHTML = err.message;
+ 	}
+ }
+
+function saveCookie()
+{
+>>>>>>> 89daafceebbca381c8a8daa1ebf3212bfe74e4ef
 	let minutes = 20;
 	let date = new Date();
 	date.setTime(date.getTime() + minutes * 60 * 1000);
@@ -173,6 +214,7 @@ function addContact() {
 	let url = urlBase + '/AddContact.' + extension;
 
 	let xhr = new XMLHttpRequest();
+<<<<<<< HEAD
 	xhr.open('POST', url, true);
 	xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
 	try {
@@ -184,6 +226,26 @@ function addContact() {
 				setTimeout(function () {
 					window.location.href = 'contact.html';
 				}, 1000);
+=======
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				try {
+					JSON.parse(xhr.responseText);
+				} catch (e) {
+					document.getElementById("contactAddResult").innerHTML = xhr.responseText;
+					return;
+				}
+
+				document.getElementById("contactAddResult").innerHTML = "Contact has been added";
+
+				setTimeout(function(){window.location.href = "contact.html";}, 1000);
+>>>>>>> 89daafceebbca381c8a8daa1ebf3212bfe74e4ef
 			}
 		};
 		xhr.send(jsonPayload);
@@ -206,6 +268,7 @@ function searchContact() {
 	let url = urlBase + '/SearchContact.' + extension;
 
 	let xhr = new XMLHttpRequest();
+<<<<<<< HEAD
 	xhr.open('POST', url, true);
 	xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
 	try {
@@ -225,6 +288,27 @@ function searchContact() {
 
 				contactList =
 					"<div class='row row-cols-1 row-cols-md-3 g-4' id='contactList'>";
+=======
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+
+				let jsonObject = JSON.parse( xhr.responseText );
+				if (jsonObject.results === undefined)
+				{
+					document.getElementById("contactSearchResult").innerHTML = jsonObject.error;
+					return;
+				}
+
+				document.getElementById("contactSearchResult").innerHTML = "<br></br>";
+				
+				contactList = "<div class='row row-cols-1 row-cols-md-3 g-4' id='contactList'>"
+>>>>>>> 89daafceebbca381c8a8daa1ebf3212bfe74e4ef
 
 				for (let i = 0; i < jsonObject.results.length; i++) {
 					let str = jsonObject.results[i]; // one contact
@@ -294,6 +378,7 @@ function formatPhoneNumber(phoneNumberString) {
 function setUpPrev(str) {
 	// put current contact info in input fields
 	let updatePage = `
+<<<<<<< HEAD
 		<span id="inner-title">Update your Contact</span>
 		<input type="text" id="contactFirst" placeholder="First name" value=${str['FirstName']} />
 		<input type="text" id="contactLast" placeholder="Last name" value=${str['LastName']} />
@@ -303,6 +388,37 @@ function setUpPrev(str) {
 		<span id="contactUpdateResult"></span>`;
 
 	document.getElementsByTagName('p')[0].innerHTML = updatePage;
+=======
+		<div class="pb-2 mb-2 border-bottom">
+			<h4>Update Contact</h4>
+		</div>
+		<div>
+			<div class="row mb-2">
+				<div class="col">
+					<label for="contactFirst" class="form-label">First Name:</label>
+					<input type="text" class="form-control" id="contactFirst" placeholder="Enter First name" value=${str["FirstName"]}>
+				</div>
+				<div class="col">
+					<label for="contactLast" class="form-label">Last Name:</label>
+					<input type="text" class="form-control" id="contactLast" placeholder="Enter Last name" value=${str["LastName"]}>
+				</div>
+			</div>
+			<div class="pb-2 mb-2">
+					<label for="contactEmail" class="form-label">Email:</label>
+					<input type="text" class="form-control" id="contactEmail" placeholder="Enter Email" value=${str["Email"]}>
+				</div>
+				<div class="pb-2 mb-2">
+					<label for="contactPhone" class="form-label">Phone:</label>
+					<input type="text" class="form-control" id="contactPhone" placeholder="Enter Phone Number" value=${str["Phone"]}>
+				</div>
+				<div class="pb-2 mb-2">
+					<button type="button" id="update2Button" class="btn btn-primary btn-lg" onclick="updateContact(${str["ID"]});">Update Contact</button>
+					<span id="contactUpdateResult"></span>
+				</div>
+		</div>`;
+	
+	document.getElementsByTagName("p")[0].innerHTML = updatePage;
+>>>>>>> 89daafceebbca381c8a8daa1ebf3212bfe74e4ef
 }
 
 function updateContact(id) {
@@ -326,6 +442,7 @@ function updateContact(id) {
 	let url = urlBase + '/UpdateContact.' + extension;
 
 	let xhr = new XMLHttpRequest();
+<<<<<<< HEAD
 	xhr.open('POST', url, true);
 	xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
 	try {
@@ -337,6 +454,26 @@ function updateContact(id) {
 				setTimeout(function () {
 					searchContact();
 				}, 1000);
+=======
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				try {
+					JSON.parse(xhr.responseText);
+				} catch (e) {
+					document.getElementById("contactUpdateResult").innerHTML = xhr.responseText;
+					return;
+				}
+		
+				document.getElementById("contactUpdateResult").innerHTML = "Contact has been updated";
+
+				setTimeout(function(){searchContact();}, 1000);
+>>>>>>> 89daafceebbca381c8a8daa1ebf3212bfe74e4ef
 			}
 		};
 		xhr.send(jsonPayload);
