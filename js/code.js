@@ -234,13 +234,13 @@ function searchContact()
 				{	
 					let str = jsonObject.results[i]; // one contact
 
-					contactList += `<div class='col'><div class='card mb-3'><div class='card-body' data-bs-toggle='collapse' data-bs-target='#collapse${i}' aria-expanded='false' aria-controls='collapse${i}'>`;
+					contactList += `<div class='col'><div class='card mb-3'><div class='card-body' data-bs-toggle='collapse' data-bs-target='#collapse${i}' aria-expanded='false' aria-controls='collapse${i}'><strong>`;
 					contactList += str["FirstName"] + " " + str["LastName"];
 					// add update/delete button for each jsonObject.results[i]
-					contactList += `<div class='d-grid gap-2 d-md-flex justify-content-md-end'><button type='button' id='updateButton' class='btn btn-outline-primary' onclick='setUpPrev(${JSON.stringify(str)});'>Update</button>`;
+					contactList += `</strong><div class='d-grid gap-2 d-md-flex justify-content-md-end'><button type='button' id='updateButton' class='btn btn-outline-primary' onclick='setUpPrev(${JSON.stringify(str)});'>Update</button>`;
 					contactList += `<button type='button' id='deleteButton' class='btn btn-outline-danger' onclick='deleteContact(${JSON.stringify(str)});'>Delete</button>`;
 					contactList += "</div></div></div>";
-					contactList += `<div id='collapse${i}' class='collapse' aria-labelledby='heading${i}' data-bs-parent='#contactList'><div class='card card-body border-primary'><div class='d-flex justify-content-evenly'>`;
+					contactList += `<div id='collapse${i}' class='collapse' aria-labelledby='heading${i}' data-bs-parent='#contactList'><div class='card card-body border-primary'><dl class='row'>`;
 
 					// print rest of info (NOT FirstName / LastName)
 					for (let j = 2; j < 5; j++)
@@ -251,11 +251,19 @@ function searchContact()
 							continue;
 						}
 						// prints each field (Email / Phone)
-						contactList += "<div class='p-2'>" + str[Object.keys(str)[j]] + "</div>";
+						if (j == 2)
+						{
+							contactList += "<dt class='col-sm-3'>Email</dt><dd class='col-sm-9'>" + str[Object.keys(str)[j]] + "</dd>";
+						}	
+						else
+						{
+							contactList += "<dt class='col-sm-3'>Phone</dt><dd class='col-sm-9'>" + str[Object.keys(str)[j]] + "</dd>";
+						}
+						
 					}
 					
 					
-					contactList += `</div></div></div><span id='contactDeleteResult'></span></div>`
+					contactList += `</dl></div><span id='contactDeleteResult'></span></div></div>`
 				}
 				contactList += "</div>";
 
