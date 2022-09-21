@@ -226,16 +226,15 @@ function searchContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				try {
-					JSON.parse(xhr.responseText);
-				} catch (e) {
-					document.getElementById("contactSearchResult").innerHTML = xhr.responseText;
+
+				let jsonObject = JSON.parse( xhr.responseText );
+				if (jsonObject.results === undefined)
+				{
+					document.getElementById("contactSearchResult").innerHTML = jsonObject.error;
 					return;
 				}
 
-				let jsonObject = JSON.parse( xhr.responseText );
-
-				document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
+				document.getElementById("contactSearchResult").innerHTML = "<br></br>";
 				
 				contactList = "<div class='row row-cols-1 row-cols-md-3 g-4' id='contactList'>"
 
