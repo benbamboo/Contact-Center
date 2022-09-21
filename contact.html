@@ -45,19 +45,19 @@
 		<div>
 			<nav class="navbar" style="background-color: #e3f2fd;">
 				<div class="container-fluid">
-					<a class="navbar-brand">Navigate</a>
-					<form class="d-flex" role="search">
-					<input type="search" class="form-control me-2" id="searchName" placeholder="Search"
-							aria-label="Search">
-					<button class="btn btn-outline-success" type="button" onclick="searchContact();">
-							Search</button>
-					</form>
 					<button type="button" onclick="window.location.href = 'addContact.html';" 
 							id="addContactButton" class="btn btn-outline-primary">New Contact</button>
+					<form class="d-flex" role="search">
+						<input type="search" class="form-control me-2" id="searchName" placeholder="Search"
+								aria-label="Search">
+						<button class="btn btn-outline-success" type="button" onclick="searchContact();">
+								Search</button>
+					</form>
+					
 				</div>
 			</nav>
 
-			<span id="contactSearchResult"></span>
+			<span id="contactSearchResult" class=""></span>
 			<p id="contactList"></p>
 
 		</div>
