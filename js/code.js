@@ -291,13 +291,33 @@ function setUpPrev(str)
 {
 	// put current contact info in input fields
 	let updatePage = `
-		<span id="inner-title">Update your Contact</span>
-		<input type="text" id="contactFirst" placeholder="First name" value=${str["FirstName"]} />
-		<input type="text" id="contactLast" placeholder="Last name" value=${str["LastName"]} />
-		<input type="text" id="contactEmail" placeholder="Email" value=${str["Email"]} />
-		<input type="text" id="contactPhone" placeholder="Phone Number" value=${str["Phone"]} />
-		<button type="button" id="update2Button" class="buttons" onclick="updateContact(${str["ID"]});">Update Contact</button>
-		<span id="contactUpdateResult"></span>`;
+		<div class="pb-2 mb-2 border-bottom">
+			<h4>Update Contact</h4>
+		</div>
+		<div>
+			<div class="row mb-2">
+				<div class="col">
+					<label for="contactFirst" class="form-label">First Name:</label>
+					<input type="text" class="form-control" id="contactFirst" placeholder="Enter First name" value=${str["FirstName"]}>
+				</div>
+				<div class="col">
+					<label for="contactLast" class="form-label">Last Name:</label>
+					<input type="text" class="form-control" id="contactLast" placeholder="Enter Last name" value=${str["LastName"]}>
+				</div>
+			</div>
+			<div class="pb-2 mb-2">
+					<label for="contactEmail" class="form-label">Email:</label>
+					<input type="text" class="form-control" id="contactEmail" placeholder="Enter Email" value=${str["Email"]}>
+				</div>
+				<div class="pb-2 mb-2">
+					<label for="contactPhone" class="form-label">Phone:</label>
+					<input type="text" class="form-control" id="contactPhone" placeholder="Enter Phone Number" value=${str["Phone"]}>
+				</div>
+				<div class="pb-2 mb-2">
+					<button type="button" id="update2Button" class="btn btn-primary btn-lg" onclick="updateContact(${str["ID"]});">Update Contact</button>
+					<span id="contactUpdateResult"></span>
+				</div>
+		</div>`;
 	
 	document.getElementsByTagName("p")[0].innerHTML = updatePage;
 }
