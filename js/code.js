@@ -236,7 +236,7 @@ function searchContact()
 
 				document.getElementById("contactSearchResult").innerHTML = "<br></br>";
 				
-				contactList = "<div class='row row-cols-1 row-cols-md-3 g-4' id='contactList'>"
+				contactList = "<span id='contactDeleteResult' class='text-danger mt-auto mb-3'></span><div class='row row-cols-1 row-cols-md-3 g-4 mt-1' id='contactList'>"
 
 				for( let i=0; i<jsonObject.results.length; i++ )
 				{	
@@ -272,7 +272,7 @@ function searchContact()
 					}
 					
 					
-					contactList += `</dl></div><span id='contactDeleteResult'></span></div></div>`
+					contactList += `</dl></div></div></div>`
 				}
 				contactList += "</div>";
 
@@ -302,31 +302,33 @@ function setUpPrev(str)
 	// put current contact info in input fields
 	let updatePage = `
 		<div class="pb-2 mb-2 border-bottom">
-			<h4>Update Contact</h4>
+			<h4 class='text-light'>Update Contact</h4>
 		</div>
 		<div>
 			<div class="row mb-2">
 				<div class="col">
-					<label for="contactFirst" class="form-label">First Name:</label>
+					<label for="contactFirst" class="form-label text-light">First Name:</label>
 					<input type="text" class="form-control" id="contactFirst" placeholder="Enter First name" value=${str["FirstName"]}>
 				</div>
 				<div class="col">
-					<label for="contactLast" class="form-label">Last Name:</label>
+					<label for="contactLast" class="form-label text-light">Last Name:</label>
 					<input type="text" class="form-control" id="contactLast" placeholder="Enter Last name" value=${str["LastName"]}>
 				</div>
 			</div>
 			<div class="pb-2 mb-2">
-					<label for="contactEmail" class="form-label">Email:</label>
+					<label for="contactEmail" class="form-label text-light">Email:</label>
 					<input type="text" class="form-control" id="contactEmail" placeholder="Enter Email" value=${str["Email"]}>
 				</div>
 				<div class="pb-2 mb-2">
-					<label for="contactPhone" class="form-label">Phone:</label>
+					<label for="contactPhone" class="form-label text-light">Phone:</label>
 					<input type="text" class="form-control" id="contactPhone" placeholder="Enter Phone Number" value=${str["Phone"]}>
 				</div>
 				<div class="pb-2 mb-2">
-					<button type="button" id="update2Button" class="btn btn-primary btn-lg" onclick="updateContact(${str["ID"]});">Update Contact</button>
-					<span id="contactUpdateResult"></span>
+					<button type="button" id="update2Button" class="btn btn-outline-info btn-lg" onclick="updateContact(${str["ID"]});">Update Contact</button>
+					
+
 				</div>
+				<span id="contactUpdateResult" class='text-light mt-3 mb-3'></span>
 		</div>`;
 	
 	document.getElementsByTagName("p")[0].innerHTML = updatePage;
