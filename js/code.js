@@ -88,13 +88,13 @@ function doLogin()
  		{
  			if (this.readyState == 4 && this.status == 200) 
  			{
-				// check if parse is either legit acct or error string
-				try {
-					JSON.parse(xhr.responseText);
-				} catch (e) {
-					document.getElementById("registerResult").innerHTML = xhr.responseText;
-					return;
-				}
+ 				if (firstName === "" || lastName === "" || login === "" || password === "" || email === "")
+ 				{
+ 					document.getElementById("registerResult").innerHTML = "Please enter all forms.";
+ 					return;
+ 				}
+
+ 				saveCookie();
 	
  				window.location.href = "login.html";
  			}
@@ -180,13 +180,6 @@ function addContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				try {
-					JSON.parse(xhr.responseText);
-				} catch (e) {
-					document.getElementById("contactAddResult").innerHTML = xhr.responseText;
-					return;
-				}
-
 				document.getElementById("contactAddResult").innerHTML = "Contact has been added";
 
 				setTimeout(function(){window.location.href = "contact.html";}, 1000);
@@ -204,7 +197,7 @@ function addContact()
 function searchContact()
 {
 	let name = document.getElementById("searchName").value;
-	let email = ""; // only searching for name
+	let email = "";
 	document.getElementById("contactSearchResult").innerHTML = "";
 	document.getElementsByTagName("p")[0].innerHTML = "";
 	
@@ -224,27 +217,30 @@ function searchContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				try {
-					JSON.parse(xhr.responseText);
-				} catch (e) {
-					document.getElementById("contactSearchResult").innerHTML = xhr.responseText;
+				let jsonObject = JSON.parse( xhr.responseText );
+
+				// if no results
+				if (jsonObject.results === undefined)
+				{
+					document.getElementById("contactSearchResult").innerHTML = "No records found!";
 					return;
 				}
 
-				let jsonObject = JSON.parse( xhr.responseText );
-
 				document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
 				
-				contactList = "<div class='accordion' id='contactList'>"
+				contactList = "<div class='row row-cols-1 row-cols-md-3 g-4' id='contactList'>"
 
 				for( let i=0; i<jsonObject.results.length; i++ )
 				{	
 					let str = jsonObject.results[i]; // one contact
 
-					contactList += `<div class='accordion-item'><h2 class='accordion-header' id='heading${i}'>`;
-					contactList += `<button class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#collapse${i}' aria-expanded='false' aria-controls="collapse${i}">`
-					contactList += str["FirstName"] + " " + str["LastName"] + "</button></h2>";
-					contactList += `<div id='collapse${i}' class='accordion-collapse collapse' aria-labelledby='heading${i}' data-bs-parent='#contactList'><div class='accordion-body'>`;
+					contactList += `<div class='col'><div class='card mb-3'><div class='card-body' data-bs-toggle='collapse' data-bs-target='#collapse${i}' aria-expanded='false' aria-controls='collapse${i}'>`;
+					contactList += str["FirstName"] + " " + str["LastName"];
+					// add update/delete button for each jsonObject.results[i]
+					contactList += `<div class='d-grid gap-2 d-md-flex justify-content-md-end'><button type='button' id='updateButton' class='btn btn-outline-primary' onclick='setUpPrev(${JSON.stringify(str)});'>Update</button>`;
+					contactList += `<button type='button' id='deleteButton' class='btn btn-outline-danger' onclick='deleteContact(${JSON.stringify(str)});'>Delete</button>`;
+					contactList += "</div></div></div>";
+					contactList += `<div id='collapse${i}' class='collapse' aria-labelledby='heading${i}' data-bs-parent='#contactList'><div class='card card-body border-primary'><div class='d-flex justify-content-evenly'>`;
 
 					// print rest of info (NOT FirstName / LastName)
 					for (let j = 2; j < 5; j++)
@@ -255,21 +251,11 @@ function searchContact()
 							continue;
 						}
 						// prints each field (Email / Phone)
-						contactList += str[Object.keys(str)[j]];
-						if (j < 4)
-						{
-							contactList += "\t";
-						}
+						contactList += "<div class='p-2'>" + str[Object.keys(str)[j]] + "</div>";
 					}
-					// add update/delete button for each jsonObject.results[i]
-					contactList += `<button type='button' id='updateButton' class='btn btn-outline-primary ms-1' onclick='setUpPrev(${JSON.stringify(str)});'>Update</button>`
-					contactList += `<button type='button' id='deleteButton' class='btn btn-outline-primary ms-1' onclick='deleteContact(${JSON.stringify(str)});'>Delete</button>`
-					contactList += "</div></div><span id='contactDeleteResult'></span></div>"
 					
-					// if( i < jsonObject.results.length - 1 )
-					// {
-					// 	contactList += "<br />\r\n";
-					// }
+					
+					contactList += `</div></div></div><span id='contactDeleteResult'></span></div>`
 				}
 				contactList += "</div>";
 
@@ -324,13 +310,6 @@ function updateContact(id)
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				try {
-					JSON.parse(xhr.responseText);
-				} catch (e) {
-					document.getElementById("contactUpdateResult").innerHTML = xhr.responseText;
-					return;
-				}
-
 				document.getElementById("contactUpdateResult").innerHTML = "Contact has been updated";
 
 				setTimeout(function(){searchContact();}, 1000);
