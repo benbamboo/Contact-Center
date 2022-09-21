@@ -254,17 +254,16 @@ function searchContact()
 					// print rest of info (NOT FirstName / LastName)
 					for (let j = 2; j < 5; j++)
 					{
-						// hide ID
+						// prints each field (Email / Phone) and hides ID
 						if (Object.keys(str)[j] == "ID")
 						{
 							continue;
-						}
-						// prints each field (Email / Phone)
-						if (j == 2)
+						} 
+						else if (Object.keys(str)[j] == "Email")
 						{
 							contactList += "<dt class='col-sm-3'>Email</dt><dd class='col-sm-9'>" + str[Object.keys(str)[j]] + "</dd>";
 						}	
-						else
+						else // phone
 						{
 							contactList += "<dt class='col-sm-3'>Phone</dt><dd class='col-sm-9'>" + formatPhoneNumber(str[Object.keys(str)[j]]) + "</dd>";
 						}
@@ -294,7 +293,7 @@ function formatPhoneNumber(phoneNumberString) {
   if (match) {
     return '(' + match[1] + ')-' + match[2] + '-' + match[3];
   }
-  return null;
+  return '';
 }
 
 function setUpPrev(str)
