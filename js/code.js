@@ -180,6 +180,13 @@ function addContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
+				try {
+					JSON.parse(xhr.responseText);
+				} catch (e) {
+					document.getElementById("contactAddResult").innerHTML = xhr.responseText;
+					return;
+				}
+
 				document.getElementById("contactAddResult").innerHTML = "Contact has been added";
 
 				setTimeout(function(){window.location.href = "contact.html";}, 1000);
@@ -317,6 +324,13 @@ function updateContact(id)
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
+				try {
+					JSON.parse(xhr.responseText);
+				} catch (e) {
+					document.getElementById("contactUpdateResult").innerHTML = xhr.responseText;
+					return;
+				}
+
 				document.getElementById("contactUpdateResult").innerHTML = "Contact has been updated";
 
 				setTimeout(function(){searchContact();}, 1000);
