@@ -98,111 +98,6 @@ function doLogin()
 
  				saveCookie();
 	
-... (304 lines left)
-Collapse
-code.js
-12 KB
-﻿
-const urlBase = 'http://contactcenters.xyz/LAMPAPI';
-const extension = 'php';
-
-let userId = 0;
-let firstName = "";
-let lastName = "";
-
-function doLogin()
-{
-	userId = 0;
-	firstName = "";
-	lastName = "";
-	
-	let login = document.getElementById("loginName").value;
-	let password = document.getElementById("loginPassword").value;
-//	var hash = md5( password );
-	
-	document.getElementById("loginResult").innerHTML = "";
-
-	let tmp = {Login:login,Password:password};
-//	var tmp = {login:login,password:hash};
-	let jsonPayload = JSON.stringify( tmp );
-	
-	let url = urlBase + '/Login.' + extension;
-
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				let jsonObject = JSON.parse( xhr.responseText );
-				userId = jsonObject.ID;
-		
-				if( userId < 1 )
-				{		
-					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
-					return;
-				}
-		
-				firstName = jsonObject.FirstName;
-				lastName = jsonObject.LastName;
-
-				saveCookie();
-	
-				window.location.href = "contact.html";
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("loginResult").innerHTML = err.message;
-	}
-
-}
-
- function doRegister()
- {
- 	firstName = document.getElementById("firstName").value;
- 	lastName = document.getElementById("lastName").value;
-	
- 	let login = document.getElementById("loginName").value;
- 	let password = document.getElementById("loginPassword").value;
- 	let email = document.getElementById("loginEmail").value;
- 	document.getElementById("registerResult").innerHTML = "";
-	
- 	/* check if created account is valid
- 	- all entries exist and aren't empty
- 	- password == retyped password
- 	*/
-
- 	let tmp = {FirstName:firstName, LastName:lastName, Email:email, Login:login, Password:password};
-	
- 	let jsonPayload = JSON.stringify( tmp ); 
-	
- 	let url = urlBase + '/Register.' + extension;
-
- 	let xhr = new XMLHttpRequest();
- 	xhr.open("POST", url, true);
- 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
- 	try
- 	{
- 		xhr.onreadystatechange = function() 
- 		{
- 			if (this.readyState == 4 && this.status == 200) 
- 			{
-				// check if parse is either legit acct or error string
-				try {
-					JSON.parse(xhr.responseText);
-				} catch (e) {
-					document.getElementById("registerResult").innerHTML = xhr.responseText;
-					return;
-				}
-
- 				saveCookie();
-	
  				window.location.href = "login.html";
  			}
  		};
@@ -370,7 +265,7 @@ function searchContact()
 						}	
 						else
 						{
-							contactList += "<dt class='col-sm-3'>Phone</dt><dd class='col-sm-9'>" + str[Object.keys(str)[j]] + "</dd>";
+							contactList += "<dt class='col-sm-3'>Phone</dt><dd class='col-sm-9'>" + formatPhoneNumber(str[Object.keys(str)[j]]) + "</dd>";
 						}
 						
 					}
@@ -390,6 +285,15 @@ function searchContact()
 		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
 	
+}
+
+function formatPhoneNumber(phoneNumberString) {
+  var cleaned = ('' + phoneNumberString).replace(/\D/g, '');
+  var match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+  if (match) {
+    return '(' + match[1] + ')-' + match[2] + '-' + match[3];
+  }
+  return null;
 }
 
 function setUpPrev(str)
@@ -506,5 +410,3 @@ function deleteContact(str)
 		document.getElementById("contactDeleteResult").innerHTML = err.message;
 	}
 }
-code.js
-12 KB
