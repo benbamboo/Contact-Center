@@ -88,11 +88,13 @@ function doLogin()
  		{
  			if (this.readyState == 4 && this.status == 200) 
  			{
- 				if (firstName === "" || lastName === "" || login === "" || password === "" || email === "")
- 				{
- 					document.getElementById("registerResult").innerHTML = "Please enter all forms.";
- 					return;
- 				}
+				// check if parse is either legit acct or error string
+				try {
+					JSON.parse(xhr.responseText);
+				} catch (e) {
+					document.getElementById("registerResult").innerHTML = xhr.responseText;
+					return;
+				}
 
  				saveCookie();
 	
@@ -180,6 +182,13 @@ function addContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
+				try {
+					JSON.parse(xhr.responseText);
+				} catch (e) {
+					document.getElementById("contactAddResult").innerHTML = xhr.responseText;
+					return;
+				}
+
 				document.getElementById("contactAddResult").innerHTML = "Contact has been added";
 
 				setTimeout(function(){window.location.href = "contact.html";}, 1000);
@@ -217,14 +226,14 @@ function searchContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				let jsonObject = JSON.parse( xhr.responseText );
-
-				// if no results
-				if (jsonObject.results === undefined)
-				{
-					document.getElementById("contactSearchResult").innerHTML = "No records found!";
+				try {
+					JSON.parse(xhr.responseText);
+				} catch (e) {
+					document.getElementById("contactSearchResult").innerHTML = xhr.responseText;
 					return;
 				}
+
+				let jsonObject = JSON.parse( xhr.responseText );
 
 				document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
 				
@@ -318,6 +327,13 @@ function updateContact(id)
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
+				try {
+					JSON.parse(xhr.responseText);
+				} catch (e) {
+					document.getElementById("contactUpdateResult").innerHTML = xhr.responseText;
+					return;
+				}
+		
 				document.getElementById("contactUpdateResult").innerHTML = "Contact has been updated";
 
 				setTimeout(function(){searchContact();}, 1000);
