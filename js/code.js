@@ -65,6 +65,7 @@ function doLogin()
 	
  	let login = document.getElementById("loginName").value;
  	let password = document.getElementById("loginPassword").value;
+	let retype = document.getElementById("loginRetype").value;
  	let email = document.getElementById("loginEmail").value;
  	document.getElementById("registerResult").innerHTML = "";
 	
@@ -72,6 +73,11 @@ function doLogin()
  	- all entries exist and aren't empty
  	- password == retyped password
  	*/
+	if (password !== retype)
+	{
+		document.getElementById("registerResult").innerHTML = "Passwords do not match.";
+		return;
+	}
 
  	let tmp = {FirstName:firstName, LastName:lastName, Email:email, Login:login, Password:password};
 	
